@@ -266,7 +266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2218090465166105503, guid: cb8740314599e5b498380065193580b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.08
+      value: -4.24
       objectReference: {fileID: 0}
     - target: {fileID: 2218090465166105503, guid: cb8740314599e5b498380065193580b2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -740,7 +740,7 @@ Transform:
   m_GameObject: {fileID: 1445248380}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.71, y: -4.04, z: 0}
+  m_LocalPosition: {x: -7.71, y: -4.26, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -817,7 +817,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1445248385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -833,8 +833,13 @@ MonoBehaviour:
   controls: {fileID: 1445248386}
   rb: {fileID: 1445248384}
   transform: {fileID: 1445248382}
+  boxSize: {x: 0.8, y: 0.15}
+  castDistance: 0.4
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
   moveSpeed: 3
-  jumpForce: 15
+  jumpForce: 20
 --- !u!114 &1445248386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -851,6 +856,7 @@ MonoBehaviour:
   moveRight: 100
   jump: 119
   throwSpear: 101
+  dash: 0
 --- !u!1 &1701395469
 GameObject:
   m_ObjectHideFlags: 0
@@ -933,7 +939,7 @@ Transform:
   m_GameObject: {fileID: 1701395469}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.61, y: -4.08, z: 0}
+  m_LocalPosition: {x: 7.61, y: -4.23, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -965,7 +971,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1701395473
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1023,11 +1029,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ad1fc4a01ef3c40b2f28191f1e349a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controls: {fileID: 0}
-  rb: {fileID: 0}
-  transform: {fileID: 0}
-  moveSpeed: 2
-  jumpForce: 15
+  controls: {fileID: 1701395475}
+  rb: {fileID: 1701395472}
+  transform: {fileID: 1701395471}
+  boxSize: {x: 0.8, y: 0.15}
+  castDistance: 0.4
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  moveSpeed: 3
+  jumpForce: 20
 --- !u!114 &1701395475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1040,10 +1051,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61368b7a5d9f8248a512afcf18ecdf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveLeft: 0
-  moveRight: 0
-  jump: 0
-  throwSpear: 0
+  moveLeft: 106
+  moveRight: 108
+  jump: 105
+  throwSpear: 117
+  dash: 0
 --- !u!1 &1757486148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1185,7 +1197,7 @@ GameObject:
   - component: {fileID: 1786287736}
   - component: {fileID: 1786287735}
   - component: {fileID: 1786287734}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1448,7 +1460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2218090465166105503, guid: cb8740314599e5b498380065193580b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.08
+      value: -4.24
       objectReference: {fileID: 0}
     - target: {fileID: 2218090465166105503, guid: cb8740314599e5b498380065193580b2, type: 3}
       propertyPath: m_LocalPosition.z

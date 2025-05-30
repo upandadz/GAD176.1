@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,14 +8,17 @@ public class Movement : MonoBehaviour
     [SerializeField] private Controls controls;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform transform;
+   
     private KeyCode moveLeft;
     private KeyCode moveRight;
     private KeyCode jump;
+    
+    [SerializeField] private Vector2 boxSize;
+    [SerializeField] private float castDistance;
+    public LayerMask groundLayer;
 
-    private bool isGrounded = true;
-
-    [SerializeField] private float moveSpeed = 3f;
-    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float jumpForce = 20f;
     
     void Start()
     {
@@ -28,28 +32,39 @@ public class Movement : MonoBehaviour
         // move left
         if (Input.GetKey(moveLeft))
         {
-            rb.velocity = Vector2.left * moveSpeed;
+            rb.velocity = new Vector2(-1 * moveSpeed, rb.velocity.y);
         }
 
         // move right
         if (Input.GetKey(moveRight))
         {
-            rb.velocity = Vector2.right * moveSpeed;
+            rb.velocity = new Vector2(1 * moveSpeed, rb.velocity.y);
         }
         
         // jump
-        if (Input.GetKey(jump))
+        if (Input.GetKey(jump) && IsGrounded())
         {
-            if (!isGrounded)
-            {
-                return;
-            }
-            isGrounded = false;
-            rb.AddForce(Vector2.up * jumpForce);
+            rb.AddForce(new Vector2(rb.velocity.x, jumpForce));
         }
         
     }
     
     // something to detect when the player hits the ground - raycast
-    
+    public bool IsGrounded()
+    {
+        if (Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, castDistance, groundLayer)) // can't do transform.down so we do -transform.up
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    // to visualise IsGrounded raycast
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position-transform.up * castDistance, boxSize);
+    }
 }
