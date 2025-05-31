@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Controls : MonoBehaviour
 {
-    public KeyCode moveLeft;
-    public KeyCode moveRight;
-    public KeyCode jump;
-    public KeyCode throwSpear;
-    public KeyCode dash;
+    public KeyCode moveLeftKey;
+    public KeyCode moveRightKey;
+    public KeyCode jumpKey;
+    public KeyCode throwKey;
+    public KeyCode DashKey;
 }

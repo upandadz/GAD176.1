@@ -22,9 +22,9 @@ public class Movement : MonoBehaviour
     
     void Start()
     {
-        moveLeft = controls.moveLeft;
-        moveRight = controls.moveRight;
-        jump = controls.jump;
+        moveLeft = controls.moveLeftKey;
+        moveRight = controls.moveRightKey;
+        jump = controls.jumpKey;
     }
     
     void Update()
