@@ -12,19 +12,28 @@ public class Movement : MonoBehaviour
     private KeyCode moveLeft;
     private KeyCode moveRight;
     private KeyCode jump;
+    private KeyCode dash;
+
+    private bool isDashing = false;
+    private bool canDash = true;
+    private float dashCD = 1f;
+    private float dashingTime = 0.2f;
+    
     
     [SerializeField] private Vector2 boxSize;
     [SerializeField] private float castDistance;
     public LayerMask groundLayer;
 
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float jumpForce = 20f;
+    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private float dashForce = 10f;
     
     void Start()
     {
         moveLeft = controls.moveLeftKey;
         moveRight = controls.moveRightKey;
         jump = controls.jumpKey;
+        dash = controls.DashKey;
     }
     
     void Update()
@@ -47,6 +56,11 @@ public class Movement : MonoBehaviour
             rb.AddForce(new Vector2(rb.velocity.x, jumpForce));
         }
         
+        // dash
+        if (Input.GetKey(dash) && canDash)
+        {
+            StartCoroutine(Dash());
+        }
     }
     
     // something to detect when the player hits the ground - raycast
@@ -66,5 +80,20 @@ public class Movement : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position-transform.up * castDistance, boxSize);
+    }
+
+    private IEnumerator Dash() // need to change movement so the local scale changes depending on direction moved
+    {
+        canDash = false;
+        isDashing = true;
+        float originalGravity = rb.gravityScale; // storing original gravity
+        rb.gravityScale = 0f;
+        rb.velocity = new Vector2(transform.localScale.x * dashForce, 0f); // add force to local x direction
+        yield return new WaitForSeconds(dashingTime);
+        isDashing = false;
+        rb.gravityScale = originalGravity; // setting gravity back
+        yield return new WaitForSeconds(dashCD);
+        canDash = true;
+        
     }
 }
