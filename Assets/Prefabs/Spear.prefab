@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3942622003983905817}
   - component: {fileID: 5356766218051567764}
   - component: {fileID: 2072427929391198156}
+  - component: {fileID: -7426461397333818302}
   m_Layer: 0
   m_Name: Spear
   m_TagString: Throwable
@@ -111,7 +112,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &2072427929391198156
 BoxCollider2D:
@@ -158,3 +159,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-7426461397333818302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8200212119382555689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f8662e7e86c8242ab30a5566fa259a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 5356766218051567764}
+  boxCollider: {fileID: 2072427929391198156}

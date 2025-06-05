@@ -14,19 +14,19 @@ public class Movement : MonoBehaviour
     private KeyCode jump;
     private KeyCode dash;
 
-    private bool isDashing = false;
     private bool canDash = true;
+    private bool isFacingRight;
     private float dashCD = 1f;
-    private float dashingTime = 0.2f;
+    private float dashingTime = 0.1f;
     
     
     [SerializeField] private Vector2 boxSize;
     [SerializeField] private float castDistance;
     public LayerMask groundLayer;
 
-    [SerializeField] private float moveSpeed = 3f;
-    [SerializeField] private float jumpForce = 10f;
-    [SerializeField] private float dashForce = 10f;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float dashForce;
     
     void Start()
     {
@@ -53,7 +53,7 @@ public class Movement : MonoBehaviour
         // jump
         if (Input.GetKey(jump) && IsGrounded())
         {
-            rb.AddForce(new Vector2(rb.velocity.x, jumpForce));
+            rb.AddForce(new Vector2(rb.velocity.x, 1 * jumpForce));
         }
         
         // dash
@@ -61,10 +61,39 @@ public class Movement : MonoBehaviour
         {
             StartCoroutine(Dash());
         }
+        
+        FlipPlayer();
     }
-    
+
+    public bool GetIsFacingRight()
+    {
+        return isFacingRight;
+    }
+
+    private void FixedUpdate()
+    {
+        if (IsGrounded())
+        {
+            rb.velocity *= 0.9f; // makes movement less slidey
+        }
+    }
+
+    private void FlipPlayer()
+    {
+        if (rb.velocity.x > 0) // facing right
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            isFacingRight = true;
+        }
+        else if (rb.velocity.x < 0) // facing left
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+            isFacingRight = false;
+        }
+    }
+
     // something to detect when the player hits the ground - raycast
-    public bool IsGrounded()
+    private bool IsGrounded()
     {
         if (Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, castDistance, groundLayer)) // can't do transform.down so we do -transform.up
         {
@@ -85,12 +114,10 @@ public class Movement : MonoBehaviour
     private IEnumerator Dash() // need to change movement so the local scale changes depending on direction moved
     {
         canDash = false;
-        isDashing = true;
         float originalGravity = rb.gravityScale; // storing original gravity
         rb.gravityScale = 0f;
         rb.velocity = new Vector2(transform.localScale.x * dashForce, 0f); // add force to local x direction
         yield return new WaitForSeconds(dashingTime);
-        isDashing = false;
         rb.gravityScale = originalGravity; // setting gravity back
         yield return new WaitForSeconds(dashCD);
         canDash = true;

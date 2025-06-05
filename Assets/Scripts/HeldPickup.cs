@@ -1,18 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HeldPickup : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Transform pickupPoint;
+    public GameObject itemHeld;
+    private Controls controls;
+
+    private void Start()
     {
-        
+        controls = GetComponent<Controls>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (Input.GetKeyDown(controls.throwKey) && itemHeld != null) // this needs to be moved elsewhere -------------
+        {
+            itemHeld.GetComponent<ThrowableBase>().Throw();
+        }
     }
 }
