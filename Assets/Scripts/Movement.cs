@@ -23,7 +23,7 @@ public class Movement : MonoBehaviour
     
     [SerializeField] private Vector2 boxSize;
     [SerializeField] private float castDistance;
-    public LayerMask groundLayer;
+    [SerializeField] private LayerMask groundLayer;
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
@@ -122,10 +122,12 @@ public class Movement : MonoBehaviour
         canDash = false;
         isDashing = true;
         float originalGravity = rb.gravityScale; // storing original gravity
+        Vector2 originalVelocity = rb.velocity;
         rb.gravityScale = 0f;
         rb.velocity = new Vector2(transform.localScale.x * dashForce, 0f); // add force to local x direction
         yield return new WaitForSeconds(dashingTime);
         rb.gravityScale = originalGravity; // setting gravity back
+        rb.velocity = originalVelocity;
         isDashing = false;
         yield return new WaitForSeconds(dashCD);
         canDash = true;
