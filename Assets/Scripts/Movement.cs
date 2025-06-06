@@ -15,6 +15,7 @@ public class Movement : MonoBehaviour
     private KeyCode dash;
 
     private bool canDash = true;
+    private bool isDashing = false;
     private bool isFacingRight;
     private float dashCD = 1f;
     private float dashingTime = 0.1f;
@@ -38,6 +39,11 @@ public class Movement : MonoBehaviour
     
     void Update()
     {
+        if (isDashing == true)
+        {
+            return; // stops movement from messing with the dash
+        }
+        
         // move left
         if (Input.GetKey(moveLeft))
         {
@@ -111,16 +117,17 @@ public class Movement : MonoBehaviour
         Gizmos.DrawWireCube(transform.position-transform.up * castDistance, boxSize);
     }
 
-    private IEnumerator Dash() // need to change movement so the local scale changes depending on direction moved
+    private IEnumerator Dash()
     {
         canDash = false;
+        isDashing = true;
         float originalGravity = rb.gravityScale; // storing original gravity
         rb.gravityScale = 0f;
         rb.velocity = new Vector2(transform.localScale.x * dashForce, 0f); // add force to local x direction
         yield return new WaitForSeconds(dashingTime);
         rb.gravityScale = originalGravity; // setting gravity back
+        isDashing = false;
         yield return new WaitForSeconds(dashCD);
         canDash = true;
-        
     }
 }

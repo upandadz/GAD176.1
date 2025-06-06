@@ -35,6 +35,6 @@ public class Spear : ThrowableBase
     protected override void Pickup(Collision2D collision)
     {
         base.Pickup(collision);
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, 0, -65)); // need to change angle depending on what way the player is facing ------------
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, 0, -65)); // need to change angle depending on what way the player is facing ------------ maybe a fixed angle? or i can instantiate a new one?
     }
 }
