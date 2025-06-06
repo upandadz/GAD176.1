@@ -7,6 +7,7 @@ public class Throw : MonoBehaviour
 {
     [SerializeField] private HeldPickup heldPickup;
     [SerializeField] private Controls controls;
+    [SerializeField] private Animator animator;
 
     private float maxThrowForce = 9f;
     private float holdDownStartTime;
@@ -27,6 +28,7 @@ public class Throw : MonoBehaviour
         if (Input.GetKeyUp(throwKey) && heldPickup.itemHeld != null)
         {
             float holdDownTime = Time.time - holdDownStartTime;
+            animator.SetTrigger("Threw");
             heldPickup.itemHeld.GetComponent<ThrowableBase>().Throw(CalculateThrowForce(holdDownTime));
         }
         

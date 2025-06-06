@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private Controls controls;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform transform;
+    [SerializeField] private Animator animator;
    
     private KeyCode moveLeft;
     private KeyCode moveRight;
@@ -16,7 +17,7 @@ public class Movement : MonoBehaviour
 
     private bool canDash = true;
     private bool isDashing = false;
-    private bool isFacingRight;
+    private bool isFacingRight = true;
     private float dashCD = 1f;
     private float dashingTime = 0.1f;
     
@@ -43,6 +44,9 @@ public class Movement : MonoBehaviour
         {
             return; // stops movement from messing with the dash
         }
+        
+        // allows animator to know when running
+        animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
         
         // move left
         if (Input.GetKey(moveLeft))
@@ -103,10 +107,12 @@ public class Movement : MonoBehaviour
     {
         if (Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, castDistance, groundLayer)) // can't do transform.down so we do -transform.up
         {
+            animator.SetBool("isGrounded", true);
             return true;
         }
         else
         {
+            animator.SetBool("isGrounded", false);
             return false;
         }
     }
