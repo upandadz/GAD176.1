@@ -488,7 +488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 313970896}
   - component: {fileID: 313970897}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -812,7 +812,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0047700405, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -823,7 +823,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8}
+  m_Size: {x: 0.43431616, y: 0.8}
   m_EdgeRadius: 0
 --- !u!114 &541059035
 MonoBehaviour:
@@ -839,15 +839,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controls: {fileID: 541059036}
   rb: {fileID: 541059031}
+  collider: {fileID: 541059032}
   transform: {fileID: 541059037}
   animator: {fileID: 1701395472}
-  boxSize: {x: 0.5, y: 0.05}
-  castDistance: 0.4
+  boxSizeGround: {x: 0.45, y: 0.12}
+  castDistanceGround: 0.38
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   moveSpeed: 3
-  jumpForce: 50
+  jumpForce: 5
   dashForce: 10
 --- !u!114 &541059036
 MonoBehaviour:
@@ -1503,7 +1504,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.02348876, y: 0.043496788}
+  m_Offset: {x: 0.0019180775, y: 0.043496788}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1514,7 +1515,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.47116327, y: 0.8869935}
+  m_Size: {x: 0.4280219, y: 0.8869935}
   m_EdgeRadius: 0
 --- !u!50 &1407539897
 Rigidbody2D:
@@ -1557,15 +1558,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controls: {fileID: 1407539901}
   rb: {fileID: 1407539897}
+  collider: {fileID: 1407539896}
   transform: {fileID: 1407539902}
   animator: {fileID: 1445248383}
-  boxSize: {x: 0.5, y: 0.05}
-  castDistance: 0.4
+  boxSizeGround: {x: 0.45, y: 0.12}
+  castDistanceGround: 0.38
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   moveSpeed: 3
-  jumpForce: 50
+  jumpForce: 5
   dashForce: 10
 --- !u!114 &1407539901
 MonoBehaviour:
@@ -2159,7 +2161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1715475849}
   - component: {fileID: 1715475848}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}

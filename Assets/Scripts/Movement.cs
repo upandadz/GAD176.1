@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Movement : MonoBehaviour
 {
     [SerializeField] private Controls controls;
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private BoxCollider2D collider;
+    //[SerializeField] private PhysicsMaterial2D noFrictionMaterial;
     [SerializeField] private Transform transform;
     [SerializeField] private Animator animator;
    
@@ -16,15 +19,19 @@ public class Movement : MonoBehaviour
     private KeyCode dash;
 
     private bool canDash = true;
+    private bool canDoubleJump = true;
     private bool isDashing = false;
     private bool isFacingRight = true;
     private float dashCD = 1f;
     private float dashingTime = 0.1f;
     
     
-    [SerializeField] private Vector2 boxSize;
-    [SerializeField] private float castDistance;
+    [SerializeField] private Vector2 boxSizeGround;
+    //[SerializeField] private Vector2 boxSizeWall;
+    [SerializeField] private float castDistanceGround;
+    //[SerializeField] private float castDistanceWall;
     [SerializeField] private LayerMask groundLayer;
+    //[SerializeField] private LayerMask allLayer;
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
@@ -61,9 +68,14 @@ public class Movement : MonoBehaviour
         }
         
         // jump
-        if (Input.GetKey(jump) && IsGrounded())
+        if (Input.GetKeyDown(jump) && IsGrounded())
         {
-            rb.AddForce(new Vector2(rb.velocity.x, 1 * jumpForce));
+            Jump();
+        }
+        else if (Input.GetKeyDown(jump) && !IsGrounded() && canDoubleJump == true)
+        {
+            Jump();
+            canDoubleJump = false;
         }
         
         // dash
@@ -74,12 +86,6 @@ public class Movement : MonoBehaviour
         
         FlipPlayer();
     }
-
-    public bool GetIsFacingRight()
-    {
-        return isFacingRight;
-    }
-
     private void FixedUpdate()
     {
         if (IsGrounded())
@@ -88,6 +94,16 @@ public class Movement : MonoBehaviour
         }
     }
 
+    public bool GetIsFacingRight()
+    {
+        return isFacingRight;
+    }
+    
+    private void Jump()
+    {
+        // rb.AddForce(new Vector2(rb.velocity.x, 1 * jumpForce));
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+    }
     private void FlipPlayer()
     {
         if (rb.velocity.x > 0) // facing right
@@ -105,9 +121,10 @@ public class Movement : MonoBehaviour
     // something to detect when the player hits the ground - raycast
     private bool IsGrounded()
     {
-        if (Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, castDistance, groundLayer)) // can't do transform.down so we do -transform.up
+        if (Physics2D.BoxCast(transform.position, boxSizeGround, 0, -transform.up, castDistanceGround, groundLayer)) // can't do transform.down so we do -transform.up
         {
             animator.SetBool("isGrounded", true);
+            canDoubleJump = true;
             return true;
         }
         else
@@ -117,10 +134,12 @@ public class Movement : MonoBehaviour
         }
     }
 
+    
+
     // to visualise IsGrounded raycast
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.position-transform.up * castDistance, boxSize);
+        Gizmos.DrawWireCube(transform.position-transform.up * castDistanceGround, boxSizeGround);
     }
 
     private IEnumerator Dash()

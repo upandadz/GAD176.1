@@ -16,7 +16,6 @@ public class Spear : ThrowableBase
         {
             Pickup(collision);
         }
-        
         else if (thrown && collision.gameObject.tag == "Ground") // lands on ground
         {
             thrown = false;

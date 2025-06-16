@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 2072427929391198156}
   - component: {fileID: -7426461397333818302}
   - component: {fileID: 6903851856501608535}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spear
   m_TagString: Throwable
   m_Icon: {fileID: 0}
