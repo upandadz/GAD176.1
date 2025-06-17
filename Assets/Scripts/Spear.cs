@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spear : ThrowableBase
+public class Spear : ThrowableBase, IPickupable
 {
     private float minY = -10f; // Expected max fall speed
     private float maxY = 10f;  // Expected max upward speed
@@ -14,7 +14,7 @@ public class Spear : ThrowableBase
     {
         if (canBePickedUp && collision.gameObject.tag == "Player") // pickup
         {
-            Pickup(collision);
+            // Pickup(collision);
         }
         else if (thrown && collision.gameObject.tag == "Ground") // lands on ground
         {
@@ -68,7 +68,18 @@ public class Spear : ThrowableBase
          }
     }
 
-    protected override void Pickup(Collision2D collision)
+    public void Pickup()
+    {
+            canBePickedUp = false;
+            boxCollider.enabled = false; // turn off collider
+            rb.simulated = false; // set rb to is simulated = false
+            transform.parent = collision.transform; // set parent to player that walks over it
+            Pickup = collision.gameObject.GetComponent<Pickup>();
+            transform.position = Pickup.pickupPoint.position; // set position to players throw spot
+            Pickup.itemHeld = this.gameObject; // add to players held item 
+    }
+
+    /*protected override void Pickup(Collision2D collision)
     {
         base.Pickup(collision);
         if (collision.gameObject.GetComponent<Movement>().GetIsFacingRight()) // TODO hack to change the angle of the spear depending on what direction the player is facing
@@ -80,5 +91,5 @@ public class Spear : ThrowableBase
             transform.rotation = Quaternion.Euler(0, 0, 65f);
         }
         
-    }
+    }*/
 }

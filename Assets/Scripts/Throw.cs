@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Throw : MonoBehaviour
 {
-    [SerializeField] private HeldPickup heldPickup;
+    [FormerlySerializedAs("heldPickup")] [SerializeField] private Pickup pickup;
     [SerializeField] private Controls controls;
     [SerializeField] private Animator animator;
 
@@ -21,15 +22,15 @@ public class Throw : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(throwKey) && heldPickup.itemHeld != null)
+        if (Input.GetKeyDown(throwKey) && pickup.itemHeld != null)
         {
             holdDownStartTime = Time.time;
         }
-        if (Input.GetKeyUp(throwKey) && heldPickup.itemHeld != null)
+        if (Input.GetKeyUp(throwKey) && pickup.itemHeld != null)
         {
             float holdDownTime = Time.time - holdDownStartTime;
             animator.SetTrigger("Threw");
-            heldPickup.itemHeld.GetComponent<ThrowableBase>().Throw(CalculateThrowForce(holdDownTime));
+            pickup.itemHeld.GetComponent<ThrowableBase>().Throw(CalculateThrowForce(holdDownTime));
         }
         
     }

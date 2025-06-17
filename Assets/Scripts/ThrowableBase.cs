@@ -7,7 +7,7 @@ public class ThrowableBase : MonoBehaviour
 {
     protected bool canBePickedUp = true;
     protected bool thrown = false;
-    protected HeldPickup heldPickup;
+    protected Pickup Pickup;
     
     protected Vector2 throwDirection;
     protected bool wasThrownRight;
@@ -16,7 +16,7 @@ public class ThrowableBase : MonoBehaviour
     [SerializeField] protected BoxCollider2D boxCollider;
     public virtual void Throw(float throwForce)
     {
-        if (heldPickup.GetComponent<Movement>().GetIsFacingRight()) // change the direction thrown based on direction player is facing
+        if (Pickup.GetComponent<Movement>().GetIsFacingRight()) // change the direction thrown based on direction player is facing
         {
             throwDirection = new Vector2(1, 1);
             wasThrownRight = true;
@@ -32,8 +32,8 @@ public class ThrowableBase : MonoBehaviour
         rb.AddForce(throwDirection * throwForce, ForceMode2D.Impulse);; // launch the damn thing
         StartCoroutine(WaitForXSeconds(0.3f)); // wait a tiny bit till collider is turned back on --------------- might need to wait a little bit longer
         boxCollider.enabled = true;
-        heldPickup.itemHeld = null;
-        heldPickup = null;
+        Pickup.itemHeld = null;
+        Pickup = null;
     }
 
     public bool GetThrown()
@@ -41,7 +41,7 @@ public class ThrowableBase : MonoBehaviour
         return thrown;
     }
 
-    protected virtual void Pickup(Collision2D collision)
+    /*protected virtual void Pickup(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<HeldPickup>().itemHeld == null) // check if already holding an item
         {
@@ -53,7 +53,7 @@ public class ThrowableBase : MonoBehaviour
             transform.position = heldPickup.pickupPoint.position; // set position to players throw spot
             heldPickup.itemHeld = this.gameObject; // add to players held item 
         }
-    }
+    }*/
 
     private IEnumerator WaitForXSeconds(float seconds)
     {
