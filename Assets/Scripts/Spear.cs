@@ -5,11 +5,33 @@ using UnityEngine;
 
 public class Spear : ThrowableBase
 {
+    [SerializeField] private PolygonCollider2D tipCollider;
     private float minY = -10f; // Expected max fall speed
     private float maxY = 10f;  // Expected max upward speed
 
     private float minAngle = -135f;
     private float maxAngle = -45f;
+
+    public override void Pickup()
+    {
+        base.Pickup();
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        boxCollider.enabled = false;
+    }
+    public override void Throw()
+    {
+        tipCollider.enabled = true;
+        if (wasThrownRight)
+        {
+            minAngle = -135f;
+            maxAngle = -45f;
+        }
+        else if (!wasThrownRight) 
+        {
+            minAngle = 45f;
+            maxAngle = 135f; 
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision) 
     {
         
@@ -17,8 +39,12 @@ public class Spear : ThrowableBase
         {
             thrown = false;
              // stick in the ground
+             rb.bodyType = RigidbodyType2D.Static;
              // turn off spear tip collider
+             tipCollider.enabled = false;
              // turn on trigger
+             boxCollider.enabled = true;
+             boxCollider.isTrigger = true;
         }
     }
     
@@ -48,20 +74,6 @@ public class Spear : ThrowableBase
             }
 
             rb.MoveRotation(zRotation);
-        }
-    }
-
-    public override void Throw()
-    {
-        if (wasThrownRight)
-        {
-            minAngle = -135f;
-            maxAngle = -45f;
-        }
-        else if (!wasThrownRight) 
-        {
-            minAngle = 45f;
-            maxAngle = 135f; 
         }
     }
 }

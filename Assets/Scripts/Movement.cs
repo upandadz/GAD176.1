@@ -9,7 +9,6 @@ public class Movement : MonoBehaviour
     [SerializeField] private Controls controls;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private BoxCollider2D collider;
-    //[SerializeField] private PhysicsMaterial2D noFrictionMaterial;
     [SerializeField] private Transform transform;
     [SerializeField] private Animator animator;
    
@@ -27,11 +26,8 @@ public class Movement : MonoBehaviour
     
     
     [SerializeField] private Vector2 boxSizeGround;
-    //[SerializeField] private Vector2 boxSizeWall;
     [SerializeField] private float castDistanceGround;
-    //[SerializeField] private float castDistanceWall;
     [SerializeField] private LayerMask groundLayer;
-    //[SerializeField] private LayerMask allLayer;
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;

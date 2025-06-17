@@ -32,7 +32,6 @@ public class Throw : MonoBehaviour
         {
             float holdDownTime = Time.time - holdDownStartTime;
             animator.SetTrigger("Threw");
-            // pickup.itemHeld.GetComponent<ThrowableBase>().Throw(CalculateThrowForce(holdDownTime));
             ThrowItem(holdDownTime);
         }
         
@@ -69,9 +68,5 @@ public class Throw : MonoBehaviour
             force = 4f;
         }
         return force;
-    }
-    private IEnumerator WaitForXSeconds(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
     }
 }

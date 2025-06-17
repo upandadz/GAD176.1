@@ -208,6 +208,7 @@ MonoBehaviour:
   wasThrownRight: 0
   rb: {fileID: 5356766218051567764}
   boxCollider: {fileID: 2072427929391198156}
+  tipCollider: {fileID: 6903851856501608535}
 --- !u!60 &6903851856501608535
 PolygonCollider2D:
   m_ObjectHideFlags: 0
