@@ -8,25 +8,39 @@ public class Pickup : MonoBehaviour
 {
     public Transform pickupPoint;
     public GameObject itemHeld;
-    
-    // on collision do pickup
-    private void OnCollisionEnter2D (Collision2D collision)
+
+    [SerializeField] private Movement movement;
+    private void OnTriggerEnter2D(Collider2D other) // Pickup
     {
-        
+        PickupItem(other);
     }
 
-    private void PickupItem(Collision2D collision)
+    private void PickupItem(Collider2D itemPickedUp)
     {
         // store reference to item
-        private GameObject item;
+        GameObject item = itemPickedUp.gameObject;
 
-        // add to held pickup/merge scripts perhaps
-
-        // let the item know it's been picked up - item should have Ipickable pickup function as well
-
-        // if throwablebase add to item held and pickup point
-
+        // if throwablebase add to item held and pickup point, remove trigger
+        if (item.GetComponent<ThrowableBase>() != null && itemHeld == null)
+        {
+            itemHeld = item; // add to held
+            itemHeld.transform.parent = transform; // set parent
+            itemHeld.transform.position = pickupPoint.position; // set position
+            if (movement.GetIsFacingRight()) // TODO hack to change the angle of the spear depending on what direction the player is facing
+            {
+                itemHeld.transform.rotation = Quaternion.Euler(0, 0, -65f);
+            }
+            else
+            {
+                itemHeld.transform.rotation = Quaternion.Euler(0, 0, 65f);
+            }
+            // let the item know it's been picked up - item should have Ipickable pickup function as well
+            itemHeld.GetComponent<ThrowableBase>().Pickup();
+        } 
+        
         // else if powerup, activate right away
-}
+
     
+    }
+
 }

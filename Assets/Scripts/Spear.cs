@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spear : ThrowableBase, IPickupable
+public class Spear : ThrowableBase
 {
     private float minY = -10f; // Expected max fall speed
     private float maxY = 10f;  // Expected max upward speed
@@ -12,15 +12,13 @@ public class Spear : ThrowableBase, IPickupable
     private float maxAngle = -45f;
     private void OnCollisionEnter2D(Collision2D collision) 
     {
-        if (canBePickedUp && collision.gameObject.tag == "Player") // pickup
-        {
-            // Pickup(collision);
-        }
-        else if (thrown && collision.gameObject.tag == "Ground") // lands on ground
+        
+        if (thrown && collision.gameObject.tag == "Ground") // lands on ground
         {
             thrown = false;
-            canBePickedUp = true;
              // stick in the ground
+             // turn off spear tip collider
+             // turn on trigger
         }
     }
     
@@ -53,43 +51,17 @@ public class Spear : ThrowableBase, IPickupable
         }
     }
 
-    public override void Throw(float throwForce)
+    public override void Throw()
     {
-        base.Throw(throwForce);
         if (wasThrownRight)
         {
             minAngle = -135f;
             maxAngle = -45f;
         }
-         else if (!wasThrownRight)
-         {
-             minAngle = 45f;
-             maxAngle = 135f;
-         }
-    }
-
-    public void Pickup()
-    {
-            canBePickedUp = false;
-            boxCollider.enabled = false; // turn off collider
-            rb.simulated = false; // set rb to is simulated = false
-            transform.parent = collision.transform; // set parent to player that walks over it
-            Pickup = collision.gameObject.GetComponent<Pickup>();
-            transform.position = Pickup.pickupPoint.position; // set position to players throw spot
-            Pickup.itemHeld = this.gameObject; // add to players held item 
-    }
-
-    /*protected override void Pickup(Collision2D collision)
-    {
-        base.Pickup(collision);
-        if (collision.gameObject.GetComponent<Movement>().GetIsFacingRight()) // TODO hack to change the angle of the spear depending on what direction the player is facing
+        else if (!wasThrownRight) 
         {
-            transform.rotation = Quaternion.Euler(0, 0, -65f);
+            minAngle = 45f;
+            maxAngle = 135f; 
         }
-        else
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 65f);
-        }
-        
-    }*/
+    }
 }

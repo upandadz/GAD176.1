@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         // collision with throwables
-        if (other.gameObject.tag == "Throwable" && other.gameObject.GetComponent<ThrowableBase>().GetThrown()) // at the moment is ANY throwable --- not just spear
+        if (other.gameObject.tag == "Throwable" && other.gameObject.GetComponent<ThrowableBase>().thrown) // at the moment is ANY throwable --- not just spear
         {
             Instantiate(prefabsList.particles[0], other.transform.position, Quaternion.identity); // blood particles
             

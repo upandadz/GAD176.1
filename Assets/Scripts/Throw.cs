@@ -6,12 +6,14 @@ using UnityEngine.Serialization;
 
 public class Throw : MonoBehaviour
 {
-    [FormerlySerializedAs("heldPickup")] [SerializeField] private Pickup pickup;
+    [SerializeField] private Pickup pickup;
     [SerializeField] private Controls controls;
     [SerializeField] private Animator animator;
+    [SerializeField] private Movement movement;
 
     private float maxThrowForce = 9f;
     private float holdDownStartTime;
+    private Vector2 throwDirection;
     
     private KeyCode throwKey;
 
@@ -26,13 +28,35 @@ public class Throw : MonoBehaviour
         {
             holdDownStartTime = Time.time;
         }
-        if (Input.GetKeyUp(throwKey) && pickup.itemHeld != null)
+        if (Input.GetKeyUp(throwKey) && pickup.itemHeld != null) // throw
         {
             float holdDownTime = Time.time - holdDownStartTime;
             animator.SetTrigger("Threw");
-            pickup.itemHeld.GetComponent<ThrowableBase>().Throw(CalculateThrowForce(holdDownTime));
+            // pickup.itemHeld.GetComponent<ThrowableBase>().Throw(CalculateThrowForce(holdDownTime));
+            ThrowItem(holdDownTime);
         }
         
+    }
+
+    private void ThrowItem(float holdTime)
+    {
+        ThrowableBase throwable = pickup.itemHeld.GetComponent<ThrowableBase>();
+        if (movement.GetIsFacingRight())
+        {
+            throwDirection = new Vector2(1, 1);
+            throwable.wasThrownRight = true;
+        }
+        else
+        {
+            throwDirection = new Vector2(-1, 1);
+            throwable.wasThrownRight = false;
+        }
+        pickup.itemHeld = null;
+        throwable.rb.simulated = true;
+        throwable.transform.parent = null;
+        throwable.thrown = true;
+        throwable.rb.AddForce(throwDirection * CalculateThrowForce(holdTime), ForceMode2D.Impulse);
+        throwable.Throw();
     }
 
     private float CalculateThrowForce(float holdTime)
@@ -45,5 +69,9 @@ public class Throw : MonoBehaviour
             force = 4f;
         }
         return force;
+    }
+    private IEnumerator WaitForXSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
     }
 }
