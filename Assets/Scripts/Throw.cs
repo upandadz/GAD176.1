@@ -11,10 +11,11 @@ public class Throw : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Movement movement;
 
+    private float minThrowForce = 4f;
     private float maxThrowForce = 9f;
     private float holdDownStartTime;
     private Vector2 throwDirection;
-    
+    private bool chargingThrow = false;
     private KeyCode throwKey;
 
     void Start()
@@ -24,30 +25,47 @@ public class Throw : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(throwKey) && pickup.itemHeld != null)
+        if ((Input.GetKeyDown(throwKey) || Input.GetKeyDown(KeyCode.R)) && pickup.itemHeld != null && chargingThrow == false) // ----------- keycode R just put in for quick testing
         {
             holdDownStartTime = Time.time;
+            chargingThrow = true;
         }
-        if (Input.GetKeyUp(throwKey) && pickup.itemHeld != null) // throw
+        if ((Input.GetKeyUp(throwKey) || Input.GetKeyUp(KeyCode.R)) && pickup.itemHeld != null && chargingThrow) // throw
         {
             float holdDownTime = Time.time - holdDownStartTime;
             animator.SetTrigger("Threw");
+            // -------------------------------------------- need to change the code here to have throw and straight throw
             ThrowItem(holdDownTime);
+            chargingThrow = false;
         }
         
     }
 
-    private void ThrowItem(float holdTime)
+    private void ThrowItem(float holdTime, bool thrownStraight = false)
     {
         ThrowableBase throwable = pickup.itemHeld.GetComponent<ThrowableBase>();
         if (movement.GetIsFacingRight())
         {
-            throwDirection = new Vector2(1, 1);
+            if (thrownStraight == true)
+            {
+                throwDirection = new Vector2(-1f, 0.2f);
+            }
+            else
+            {
+                throwDirection = new Vector2(1, 1);
+            }
             throwable.wasThrownRight = true;
         }
         else
         {
-            throwDirection = new Vector2(-1, 1);
+            if (thrownStraight == true)
+            {
+                throwDirection = new Vector2(1, 0.2f);
+            }
+            else
+            {
+                throwDirection = new Vector2(-1, 1);
+            }
             throwable.wasThrownRight = false;
         }
         pickup.itemHeld = null;
@@ -62,11 +80,7 @@ public class Throw : MonoBehaviour
     {
         float maxHoldDownTime = 1f;
         float holdDownTimeNormalized = Mathf.Clamp01(holdTime / maxHoldDownTime); // keeps the value between 0 and 1
-        float force = holdDownTimeNormalized * maxThrowForce;
-        if (force < 4f)
-        {
-            force = 4f;
-        }
+        float force = Mathf.Lerp(minThrowForce, maxThrowForce, holdDownTimeNormalized);
         return force;
     }
 }

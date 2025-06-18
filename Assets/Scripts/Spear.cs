@@ -45,6 +45,7 @@ public class Spear : ThrowableBase
              // turn on trigger
              boxCollider.enabled = true;
              boxCollider.isTrigger = true;
+            // transform.parent = collision.transform; // this is for when i have moving platforms so it moves with the platform, currently making it go weird with the floor
         }
     }
     
@@ -59,20 +60,19 @@ public class Spear : ThrowableBase
             float yVelocity = rb.velocity.y;
 
             // Normalize yVelocity to a 0–1 value
-            float t = Mathf.InverseLerp(minY, maxY, yVelocity);
+            float interpolation = Mathf.InverseLerp(minY, maxY, yVelocity);
 
             // Interpolate between min and max angle
             float zRotation;
             
             if (!wasThrownRight) // TODO this was a hack due to local scaling issues with movement
             {
-                zRotation = Mathf.Lerp(maxAngle, minAngle, t);
+                zRotation = Mathf.Lerp(maxAngle, minAngle, interpolation);
             }
             else
             {
-                zRotation = Mathf.Lerp(minAngle, maxAngle, t);
+                zRotation = Mathf.Lerp(minAngle, maxAngle, interpolation);
             }
-
             rb.MoveRotation(zRotation);
         }
     }
