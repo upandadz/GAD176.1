@@ -23,15 +23,6 @@ public class UpdateSlider : MonoBehaviour
         slider.value += Time.deltaTime;
     }
 
-    public void EnableSlider()
-    {
-        slider.enabled = true;
-    }
-    private void OnEnable()
-    {
-        
-    }
-
     private void OnDisable()
     {
         slider.value = 0;

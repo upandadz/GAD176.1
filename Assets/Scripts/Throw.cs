@@ -10,7 +10,7 @@ public class Throw : MonoBehaviour
     [SerializeField] private Controls controls;
     [SerializeField] private Animator animator;
     [SerializeField] private Movement movement;
-    [SerializeField] private UpdateSlider updateSlider;
+    [SerializeField] private Transform powerSlider;
 
     private float minThrowForce = 4f;
     private float maxThrowForce = 9f;
@@ -46,6 +46,7 @@ public class Throw : MonoBehaviour
             animator.SetTrigger("Threw");
             ThrowItem(holdDownTime, throwStraight);
             chargingThrow = false;
+            powerSlider.gameObject.SetActive(false);
         }
         
     }
@@ -61,7 +62,7 @@ public class Throw : MonoBehaviour
         chargingThrow = true;
         throwStraight = thrownStraight;
         // ------------------------------- update the power slider, not working
-        // UpdateSlider.EnableSlider();
+        powerSlider.gameObject.SetActive(true);
     }
 
     private void ThrowItem(float holdTime, bool thrownStraight)
