@@ -10,45 +10,68 @@ public class Throw : MonoBehaviour
     [SerializeField] private Controls controls;
     [SerializeField] private Animator animator;
     [SerializeField] private Movement movement;
+    [SerializeField] private UpdateSlider updateSlider;
 
     private float minThrowForce = 4f;
     private float maxThrowForce = 9f;
     private float holdDownStartTime;
     private Vector2 throwDirection;
     private bool chargingThrow = false;
+    private bool throwStraight;
     private KeyCode throwKey;
+    private KeyCode throwStraightKey;
+    private float maxHoldDownTime = 1.5f;
 
     void Start()
     {
         throwKey = controls.throwKey;
+        throwStraightKey = controls.throwStraightKey;
     }
 
     void Update()
     {
-        if ((Input.GetKeyDown(throwKey) || Input.GetKeyDown(KeyCode.R)) && pickup.itemHeld != null && chargingThrow == false) // ----------- keycode R just put in for quick testing
+        // start charging throw
+        if (Input.GetKeyDown(throwKey) && pickup.itemHeld != null && chargingThrow == false) 
         {
-            holdDownStartTime = Time.time;
-            chargingThrow = true;
+            ChargeThrow(false);
         }
-        if ((Input.GetKeyUp(throwKey) || Input.GetKeyUp(KeyCode.R)) && pickup.itemHeld != null && chargingThrow) // throw
+        else if (Input.GetKeyDown(throwStraightKey) && pickup.itemHeld != null && chargingThrow == false)
+        {
+            ChargeThrow(true);
+        }
+        
+        if ((Input.GetKeyUp(throwKey) || Input.GetKeyUp(throwStraightKey)) && pickup.itemHeld != null && chargingThrow) // throw
         {
             float holdDownTime = Time.time - holdDownStartTime;
             animator.SetTrigger("Threw");
-            // -------------------------------------------- need to change the code here to have throw and straight throw
-            ThrowItem(holdDownTime);
+            ThrowItem(holdDownTime, throwStraight);
             chargingThrow = false;
         }
         
     }
 
-    private void ThrowItem(float holdTime, bool thrownStraight = false)
+    public float GetMaxHoldDownTime()
+    {
+        return maxHoldDownTime;
+    }
+
+    private void ChargeThrow(bool thrownStraight)
+    {
+        holdDownStartTime = Time.time;
+        chargingThrow = true;
+        throwStraight = thrownStraight;
+        // ------------------------------- update the power slider, not working
+        // UpdateSlider.EnableSlider();
+    }
+
+    private void ThrowItem(float holdTime, bool thrownStraight)
     {
         ThrowableBase throwable = pickup.itemHeld.GetComponent<ThrowableBase>();
         if (movement.GetIsFacingRight())
         {
             if (thrownStraight == true)
             {
-                throwDirection = new Vector2(-1f, 0.2f);
+                throwDirection = new Vector2(1f, 0.2f);
             }
             else
             {
@@ -60,7 +83,7 @@ public class Throw : MonoBehaviour
         {
             if (thrownStraight == true)
             {
-                throwDirection = new Vector2(1, 0.2f);
+                throwDirection = new Vector2(-1, 0.2f);
             }
             else
             {
@@ -78,7 +101,6 @@ public class Throw : MonoBehaviour
 
     private float CalculateThrowForce(float holdTime)
     {
-        float maxHoldDownTime = 1f;
         float holdDownTimeNormalized = Mathf.Clamp01(holdTime / maxHoldDownTime); // keeps the value between 0 and 1
         float force = Mathf.Lerp(minThrowForce, maxThrowForce, holdDownTimeNormalized);
         return force;

@@ -45,7 +45,7 @@ public class Spear : ThrowableBase
              // turn on trigger
              boxCollider.enabled = true;
              boxCollider.isTrigger = true;
-            // transform.parent = collision.transform; // this is for when i have moving platforms so it moves with the platform, currently making it go weird with the floor
+            // transform.parent = collision.transform; // this is for when I have moving platforms so it moves with the platform, currently making it go weird with the floor
         }
     }
     
@@ -55,7 +55,7 @@ public class Spear : ThrowableBase
         {
             // starting y velocity = -45 degrees on the z axis
             // y velocity at 0 = -90 degrees on the z axis
-            // -starting y velocity = - 135 degrees on the z axis
+            // -starting y velocity = -135 degrees on the z axis
             
             float yVelocity = rb.velocity.y;
 

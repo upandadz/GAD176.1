@@ -9,5 +9,6 @@ public class Controls : MonoBehaviour
     public KeyCode moveRightKey;
     public KeyCode jumpKey;
     public KeyCode throwKey;
+    public KeyCode throwStraightKey;
     public KeyCode DashKey;
 }
