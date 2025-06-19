@@ -912,7 +912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ada602acb874d4185b26768a0b745b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickup: {fileID: 541059038}
+  pickupAbility: {fileID: 0}
   controls: {fileID: 541059036}
   animator: {fileID: 1701395472}
   movement: {fileID: 541059035}
@@ -1993,7 +1993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ada602acb874d4185b26768a0b745b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickup: {fileID: 1407539903}
+  pickupAbility: {fileID: 0}
   controls: {fileID: 1407539901}
   animator: {fileID: 1445248383}
   movement: {fileID: 1407539900}
