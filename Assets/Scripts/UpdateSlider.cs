@@ -8,7 +8,6 @@ public class UpdateSlider : MonoBehaviour
 {
     [SerializeField] private Throw throwClass;
     [SerializeField] private Slider slider;
-    [SerializeField] private Transform sliderTransform;
 
     private float maxHoldDownTime;
 

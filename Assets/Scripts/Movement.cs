@@ -97,7 +97,6 @@ public class Movement : MonoBehaviour
     
     private void Jump()
     {
-        // rb.AddForce(new Vector2(rb.velocity.x, 1 * jumpForce));
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
     private void FlipPlayer()

@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 public class Throw : MonoBehaviour
 {
-    [SerializeField] private Pickup pickup;
+    [SerializeField] private PickupAbility pickupAbility;
     [SerializeField] private Controls controls;
     [SerializeField] private Animator animator;
     [SerializeField] private Movement movement;
@@ -31,16 +31,16 @@ public class Throw : MonoBehaviour
     void Update()
     {
         // start charging throw
-        if (Input.GetKeyDown(throwKey) && pickup.itemHeld != null && chargingThrow == false) 
+        if (Input.GetKeyDown(throwKey) && pickupAbility.itemHeld != null && chargingThrow == false) 
         {
             ChargeThrow(false);
         }
-        else if (Input.GetKeyDown(throwStraightKey) && pickup.itemHeld != null && chargingThrow == false)
+        else if (Input.GetKeyDown(throwStraightKey) && pickupAbility.itemHeld != null && chargingThrow == false)
         {
             ChargeThrow(true);
         }
         
-        if ((Input.GetKeyUp(throwKey) || Input.GetKeyUp(throwStraightKey)) && pickup.itemHeld != null && chargingThrow) // throw
+        if ((Input.GetKeyUp(throwKey) || Input.GetKeyUp(throwStraightKey)) && pickupAbility.itemHeld != null && chargingThrow) // throw
         {
             float holdDownTime = Time.time - holdDownStartTime;
             animator.SetTrigger("Threw");
@@ -67,7 +67,7 @@ public class Throw : MonoBehaviour
 
     private void ThrowItem(float holdTime, bool thrownStraight)
     {
-        ThrowableBase throwable = pickup.itemHeld.GetComponent<ThrowableBase>();
+        ThrowableBase throwable = pickupAbility.itemHeld.GetComponent<ThrowableBase>();
         if (movement.GetIsFacingRight())
         {
             if (thrownStraight == true)
@@ -92,7 +92,7 @@ public class Throw : MonoBehaviour
             }
             throwable.wasThrownRight = false;
         }
-        pickup.itemHeld = null;
+        pickupAbility.itemHeld = null;
         throwable.rb.simulated = true;
         throwable.transform.parent = null;
         throwable.thrown = true;

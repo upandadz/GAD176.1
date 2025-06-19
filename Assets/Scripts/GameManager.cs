@@ -15,5 +15,5 @@ public class GameManager : MonoBehaviour
     }
     // keep track of time
     // round start
-    // list of players to count how many spears stuck in them/how much damage they took
+    // list of players to count how many spears stuck in them/how much damage they took, use for loop to count spears when timers out & see which is highest
 }
