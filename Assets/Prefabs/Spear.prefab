@@ -209,6 +209,10 @@ MonoBehaviour:
   rb: {fileID: 5356766218051567764}
   boxCollider: {fileID: 2072427929391198156}
   tipCollider: {fileID: 6903851856501608535}
+  minY: -10
+  maxY: 10
+  minAngle: -135
+  maxAngle: -45
 --- !u!60 &6903851856501608535
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -216,7 +220,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8200212119382555689}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

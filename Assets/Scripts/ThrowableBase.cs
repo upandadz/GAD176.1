@@ -16,8 +16,24 @@ public class ThrowableBase : MonoBehaviour, IPickupable
     }
     public virtual void Pickup()
     {
+        rb.bodyType = RigidbodyType2D.Dynamic;
         rb.simulated = false; // set rb to is simulated = false
         boxCollider.isTrigger = false; // turn off trigger
+    }
+
+    private void OnEnable()
+    {
+        MakeStatic();
+    }
+    
+    protected void MakeStatic()
+    {
+        thrown = false;
+        // stick in/on the ground
+        rb.bodyType = RigidbodyType2D.Static; 
+        // turn on trigger
+        boxCollider.enabled = true;
+        boxCollider.isTrigger = true;
     }
     
 }

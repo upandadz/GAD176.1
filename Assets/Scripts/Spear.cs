@@ -15,7 +15,6 @@ public class Spear : ThrowableBase
     public override void Pickup()
     {
         base.Pickup();
-        rb.bodyType = RigidbodyType2D.Dynamic;
         boxCollider.enabled = false;
     }
     public override void Throw()
@@ -32,19 +31,14 @@ public class Spear : ThrowableBase
             maxAngle = 135f; 
         }
     }
+
     private void OnCollisionEnter2D(Collision2D collision) 
     {
         
-        if (thrown && collision.gameObject.tag == "Ground") // lands on ground ----------- empty script "tag ground/stickable'
+        if (thrown && collision.gameObject.GetComponent<Surface>()) // lands on ground
         {
-            thrown = false;
-             // stick in the ground
-             rb.bodyType = RigidbodyType2D.Static;
-             // turn off spear tip collider
-             tipCollider.enabled = false;
-             // turn on trigger
-             boxCollider.enabled = true;
-             boxCollider.isTrigger = true;
+            MakeStatic();
+            tipCollider.enabled = false;
             // transform.parent = collision.transform; // this is for when I have moving platforms so it moves with the platform, currently making it go weird with the floor
         }
         else if (thrown && collision.gameObject.GetComponent<Player>())
