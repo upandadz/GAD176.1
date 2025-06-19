@@ -52,13 +52,13 @@ public class Movement : MonoBehaviour
         animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
         
         // move left
-        if (Input.GetKey(moveLeft))
+        if (Input.GetKey(moveLeft) && IsWalledLeft() == false)
         {
             rb.velocity = new Vector2(-1 * moveSpeed, rb.velocity.y);
         }
 
         // move right
-        if (Input.GetKey(moveRight))
+        if (Input.GetKey(moveRight) && IsWalledRight() == false)
         {
             rb.velocity = new Vector2(1 * moveSpeed, rb.velocity.y);
         }
@@ -129,7 +129,29 @@ public class Movement : MonoBehaviour
         }
     }
 
-    
+    private bool IsWalledLeft()
+    {
+        if (Physics2D.Raycast(transform.position, -transform.right, 2f, groundLayer))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private bool IsWalledRight()
+    {
+        if (Physics2D.Raycast(transform.position, transform.right, 2f, groundLayer))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     // to visualise IsGrounded raycast
     private void OnDrawGizmos()

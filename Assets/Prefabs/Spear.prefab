@@ -209,6 +209,7 @@ MonoBehaviour:
   rb: {fileID: 5356766218051567764}
   boxCollider: {fileID: 2072427929391198156}
   tipCollider: {fileID: 6903851856501608535}
+  dugInSprite: {fileID: 21300000, guid: 27c4b0784dea31347bfe7d23874798f9, type: 3}
   minY: -10
   maxY: 10
   minAngle: -135

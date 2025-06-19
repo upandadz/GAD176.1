@@ -61,7 +61,6 @@ public class Throw : MonoBehaviour
         holdDownStartTime = Time.time;
         chargingThrow = true;
         throwStraight = thrownStraight;
-        // ------------------------------- update the power slider, not working
         powerSlider.gameObject.SetActive(true);
     }
 

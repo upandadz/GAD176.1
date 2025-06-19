@@ -6,9 +6,9 @@ using UnityEngine;
 public class Spear : ThrowableBase
 {
     [SerializeField] private PolygonCollider2D tipCollider;
+    [SerializeField] private Sprite dugInSprite;
     [SerializeField] private float minY = -10f; // Expected max fall speed
     [SerializeField] private float maxY = 10f;  // Expected max upward speed
-
     [SerializeField] private float minAngle = -135f;
     [SerializeField] private float maxAngle = -45f;
 
@@ -45,6 +45,8 @@ public class Spear : ThrowableBase
         {
             // thrown = false;
             // start game event
+            // change sprite to dug in
+            // make player the parent
         }
     }
     

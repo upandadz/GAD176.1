@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class JarOfNails : ThrowableBase
 {
+    private Quaternion rotationRight = Quaternion.Euler(68, 90, -90);
+    private Quaternion rotationLeft = Quaternion.Euler(112, 90, -90);
     private PrefabsList prefabsList; // this is to spawn in particleFX when jar shatters
 
     void Start()
@@ -40,7 +42,14 @@ public class JarOfNails : ThrowableBase
     {
         // jar smashing sound
         // nails PFX
-        Instantiate(prefabsList.particles[1], transform.position, Quaternion.identity);
+        if (wasThrownRight)
+        {
+            Instantiate(prefabsList.particles[1], transform.position, rotationRight);
+        }
+        else
+        {
+            Instantiate(prefabsList.particles[1], transform.position, rotationLeft);
+        }
         // instantiate nails -- should have its own script, also depending on direction thrown should change where they spawn
         // destroy self
         Destroy(gameObject);
