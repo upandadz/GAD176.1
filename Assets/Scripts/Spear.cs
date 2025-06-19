@@ -6,6 +6,7 @@ using UnityEngine;
 public class Spear : ThrowableBase
 {
     [SerializeField] private PolygonCollider2D tipCollider;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite dugInSprite;
     [SerializeField] private float minY = -10f; // Expected max fall speed
     [SerializeField] private float maxY = 10f;  // Expected max upward speed
@@ -41,12 +42,27 @@ public class Spear : ThrowableBase
             tipCollider.enabled = false;
             // transform.parent = collision.transform; // this is for when I have moving platforms so it moves with the platform, currently making it go weird with the floor
         }
-        else if (thrown && collision.gameObject.GetComponent<Player>())
+        else if (thrown && collision.gameObject.GetComponent<Player>()) // hit player
         {
-            // thrown = false;
-            // start game event
+            thrown = false;
+            // start game event to up score
             // change sprite to dug in
+            spriteRenderer.sprite = dugInSprite;
             // make player the parent
+            transform.parent = collision.transform;
+            // stop velocity
+            rb.velocity = Vector2.zero;
+            if (wasThrownRight)
+            {
+                transform.position = new Vector3(transform.position.x + 0.2f, transform.position.y, transform.position.z);
+            }
+            else
+            {
+                transform.position = new Vector3(transform.position.x - 0.2f, transform.position.y, transform.position.z);
+            }
+            tipCollider.enabled = false;
+            boxCollider.enabled = false;
+            rb.simulated = false;
         }
     }
     

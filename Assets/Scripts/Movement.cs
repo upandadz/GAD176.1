@@ -11,7 +11,17 @@ public class Movement : MonoBehaviour
     [SerializeField] private BoxCollider2D collider;
     [SerializeField] private Transform transform;
     [SerializeField] private Animator animator;
-   
+
+    [SerializeField] private Vector2 boxSizeGround;
+    [SerializeField] private Vector2 boxSizeWall;
+    [SerializeField] private float castDistanceGround;
+    [SerializeField] private float castDistanceWall;
+    [SerializeField] private LayerMask groundLayer;
+
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float dashForce;
+    
     private KeyCode moveLeft;
     private KeyCode moveRight;
     private KeyCode jump;
@@ -23,15 +33,6 @@ public class Movement : MonoBehaviour
     private bool isFacingRight = true;
     private float dashCD = 1f;
     private float dashingTime = 0.1f;
-    
-    
-    [SerializeField] private Vector2 boxSizeGround;
-    [SerializeField] private float castDistanceGround;
-    [SerializeField] private LayerMask groundLayer;
-
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float jumpForce;
-    [SerializeField] private float dashForce;
     
     void Start()
     {
@@ -131,7 +132,7 @@ public class Movement : MonoBehaviour
 
     private bool IsWalledLeft()
     {
-        if (Physics2D.Raycast(transform.position, -transform.right, 2f, groundLayer))
+        if (Physics2D.BoxCast(transform.position, boxSizeWall, 0, -transform.right, castDistanceWall, groundLayer))
         {
             return true;
         }
@@ -143,7 +144,7 @@ public class Movement : MonoBehaviour
 
     private bool IsWalledRight()
     {
-        if (Physics2D.Raycast(transform.position, transform.right, 2f, groundLayer))
+        if (Physics2D.BoxCast(transform.position, boxSizeWall,0,transform.right, castDistanceWall, groundLayer))
         {
             return true;
         }
@@ -155,10 +156,12 @@ public class Movement : MonoBehaviour
 
     // to visualise IsGrounded raycast
     private void OnDrawGizmos()
-    {
+    { 
         Gizmos.DrawWireCube(transform.position-transform.up * castDistanceGround, boxSizeGround);
+        Gizmos.DrawWireCube(transform.position - transform.right * castDistanceWall, boxSizeWall);
     }
 
+    
     private IEnumerator Dash()
     {
         canDash = false;

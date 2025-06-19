@@ -315,7 +315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 255651164}
   - component: {fileID: 255651165}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -876,7 +876,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0047700405, y: 0}
+  m_Offset: {x: -0.0047700405, y: 0.010554314}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -887,7 +887,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.43431616, y: 0.8}
+  m_Size: {x: 0.43431616, y: 0.8802128}
   m_EdgeRadius: 0
 --- !u!114 &541059035
 MonoBehaviour:
@@ -907,7 +907,9 @@ MonoBehaviour:
   transform: {fileID: 541059037}
   animator: {fileID: 1701395472}
   boxSizeGround: {x: 0.45, y: 0.12}
+  boxSizeWall: {x: 0.1, y: 0.84}
   castDistanceGround: 0.38
+  castDistanceWall: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -1953,7 +1955,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0019180775, y: 0.043496788}
+  m_Offset: {x: 0.0019180775, y: 0.01585102}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1964,7 +1966,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4280219, y: 0.8869935}
+  m_Size: {x: 0.4280219, y: 0.8831806}
   m_EdgeRadius: 0
 --- !u!50 &1407539897
 Rigidbody2D:
@@ -2011,7 +2013,9 @@ MonoBehaviour:
   transform: {fileID: 1407539902}
   animator: {fileID: 1445248383}
   boxSizeGround: {x: 0.45, y: 0.12}
+  boxSizeWall: {x: 0.1, y: 0.84}
   castDistanceGround: 0.38
+  castDistanceWall: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -2111,7 +2115,7 @@ GameObject:
   - component: {fileID: 1428345513}
   - component: {fileID: 1428345511}
   - component: {fileID: 1428345514}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightWall
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -3023,7 +3027,7 @@ GameObject:
   - component: {fileID: 1757486151}
   - component: {fileID: 1757486149}
   - component: {fileID: 1757486152}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftWall
   m_TagString: Ground
   m_Icon: {fileID: 0}
