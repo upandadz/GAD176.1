@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         // collision with throwables
-        if (other.gameObject.GetComponent<ThrowableBase>() != null)
+        if (other.gameObject.GetComponent<ThrowableBase>() != null) // could check for thrown bool, but it shouldn't matter as projectiles are triggers unless thrown
         {
             Instantiate(prefabsList.particles[0], other.transform.position, Quaternion.identity); // blood particles
             
@@ -25,5 +25,4 @@ public class Player : MonoBehaviour
             // play sound
         }
     }
-    
 }

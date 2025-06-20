@@ -37,13 +37,13 @@ public class PiercingProjectile : ThrowableBase
     protected virtual void OnCollisionEnter2D(Collision2D collision) 
     {
         
-        if (thrown && collision.gameObject.GetComponent<Surface>()) // lands on ground
+        if (thrown && collision.gameObject.GetComponent<Surface>() != null) // lands on ground
         {
             MakeStatic();
             tipCollider.enabled = false;
             // transform.parent = collision.transform; // this is for when I have moving platforms so it moves with the platform, currently making it go weird with the floor
         }
-        else if (thrown && collision.gameObject.GetComponent<Player>()) // hit player
+        else if (thrown && collision.gameObject.GetComponent<Player>() != null) // hit player
         {
             thrown = false;
             // start game event to up score
