@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
-public class Spear : ThrowableBase
+public class PiercingProjectile : ThrowableBase
 {
     [SerializeField] private PolygonCollider2D tipCollider;
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -33,7 +34,7 @@ public class Spear : ThrowableBase
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) 
+    protected virtual void OnCollisionEnter2D(Collision2D collision) 
     {
         
         if (thrown && collision.gameObject.GetComponent<Surface>()) // lands on ground
@@ -52,14 +53,34 @@ public class Spear : ThrowableBase
             transform.parent = collision.transform;
             // stop velocity
             rb.velocity = Vector2.zero;
+
+            Vector3 currentLocalPos = transform.localPosition;
+            float centerPull = 0.3f;
+            float targetX;
             if (wasThrownRight)
             {
-                transform.position = new Vector3(transform.position.x + 0.2f, transform.position.y, transform.position.z);
+                targetX = 0.2f;
             }
             else
             {
-                transform.position = new Vector3(transform.position.x - 0.2f, transform.position.y, transform.position.z);
+                targetX = -0.2f;
             }
+            float newX = Mathf.Lerp(currentLocalPos.x, targetX, centerPull);
+            
+            float targetY;
+            float newY = currentLocalPos.y; // named new Y because it will potentially change depending how far from the center it lands
+            if (currentLocalPos.y < -0.3f) // if too far low
+            {
+                targetY = -0.2f;
+                newY = Mathf.Lerp(currentLocalPos.y, targetY, centerPull);
+            }
+            else if (currentLocalPos.y > 0.3f) // if too high
+            {
+                targetY = -0.2f;
+                newY = Mathf.Lerp(currentLocalPos.y, targetY, centerPull);
+            }
+            transform.localPosition = new Vector3(newX, newY, transform.localPosition.z);
+            
             tipCollider.enabled = false;
             boxCollider.enabled = false;
             rb.simulated = false;
@@ -68,6 +89,7 @@ public class Spear : ThrowableBase
     
     private void FixedUpdate()
     {
+        // rotate if thrown
         if (thrown)
         {
             // starting y velocity = -45 degrees on the z axis

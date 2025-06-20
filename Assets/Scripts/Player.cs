@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         // collision with throwables
-        if (other.gameObject.tag == "Throwable" && other.gameObject.GetComponent<ThrowableBase>().thrown)
+        if (other.gameObject.GetComponent<ThrowableBase>() != null)
         {
             Instantiate(prefabsList.particles[0], other.transform.position, Quaternion.identity); // blood particles
             
@@ -23,8 +23,6 @@ public class Player : MonoBehaviour
             animator.SetTrigger("Hit");
             
             // play sound
-            
-            // if item is spear/poison dart get stuck in
         }
     }
     
