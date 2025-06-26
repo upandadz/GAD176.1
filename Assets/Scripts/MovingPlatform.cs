@@ -7,10 +7,10 @@ public class MovingPlatform : MonoBehaviour
 {
     [SerializeField] private bool isHorizontal;
     [SerializeField] private float moveSpeed;
-    [SerializeField] private float moveDistance;
+    [SerializeField] private float moveDistance; // how far to move the platform each direction
     
     private Vector2 startPosition;
-    private Vector2 movePosition;
+    private Vector2 movePosition; // where the platform will move to
 
     void Start()
     {
@@ -24,7 +24,7 @@ public class MovingPlatform : MonoBehaviour
             movePosition.x = startPosition.x + Mathf.Sin(Time.time * moveSpeed) * moveDistance;
             transform.position = new Vector2(movePosition.x, transform.position.y);
         }
-        else // verticle ------------ currently having issues with objects not staying on the platform properly, also when platform goes up it makes player animation bug out
+        else // verticle ------------ currently having issues with objects not staying on the platform properly, also when platform goes up it makes player animation bug out if player is on top
         {
             movePosition.y = startPosition.y + Mathf.Sin(Time.time * moveSpeed) * moveDistance;
             transform.position = new Vector2(transform.position.x, movePosition.y);
