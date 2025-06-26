@@ -51,6 +51,7 @@ public class JarOfNails : ThrowableBase
             Instantiate(prefabsList.particles[1], transform.position, rotationLeft);
         }
         // instantiate nails -- should have its own script, also depending on direction thrown should change where they spawn
+        Instantiate(prefabsList.hazards[0], transform.position, Quaternion.identity);
         // destroy self
         Destroy(gameObject);
     }

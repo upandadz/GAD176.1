@@ -17,6 +17,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float castDistanceGround;
     [SerializeField] private float castDistanceWall;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask wallLayer;
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
@@ -132,7 +133,8 @@ public class Movement : MonoBehaviour
 
     private bool IsWalledLeft()
     {
-        if (Physics2D.BoxCast(transform.position, boxSizeWall, 0, -transform.right, castDistanceWall, groundLayer))
+        // two big ifs, for multiple layers, I don't like this but here we are
+        if (Physics2D.BoxCast(transform.position, boxSizeWall, 0, -transform.right, castDistanceWall, wallLayer) || Physics2D.BoxCast(transform.position, boxSizeWall,0,transform.right, castDistanceWall, groundLayer))
         {
             return true;
         }
@@ -144,7 +146,7 @@ public class Movement : MonoBehaviour
 
     private bool IsWalledRight()
     {
-        if (Physics2D.BoxCast(transform.position, boxSizeWall,0,transform.right, castDistanceWall, groundLayer))
+        if (Physics2D.BoxCast(transform.position, boxSizeWall,0,transform.right, castDistanceWall, wallLayer) || Physics2D.BoxCast(transform.position, boxSizeWall,0,transform.right, castDistanceWall, groundLayer))
         {
             return true;
         }

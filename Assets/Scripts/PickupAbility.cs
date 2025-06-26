@@ -9,7 +9,7 @@ public class PickupAbility : MonoBehaviour // rename class to something to do wi
     public Transform pickupPoint;
     public GameObject itemHeld;
 
-    [SerializeField] private Movement movement; // this is to get 
+    [SerializeField] private Movement movement; // this is to get what direction player is facing 
 
     private float zAngle = 65;
     private void OnTriggerEnter2D(Collider2D other) // need to know what direction we are facing

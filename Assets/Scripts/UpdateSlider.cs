@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UpdateSlider : MonoBehaviour
 {
-    [SerializeField] private Throw throwClass;
+    [SerializeField] private Throw throwClass; // to get holdown time value
     [SerializeField] private Slider slider;
 
     private float maxHoldDownTime;

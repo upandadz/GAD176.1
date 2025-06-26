@@ -10,7 +10,7 @@ public class PowerupBase : MonoBehaviour, IPickupable
         // activate
     }
     
-    void FixedUpdate()
+    void Update()
     {
         // make view go bigger then smaller on repeat
         // change colour randomly too

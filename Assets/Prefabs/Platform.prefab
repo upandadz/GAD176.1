@@ -117,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1965370228252236995}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: ItemSpawnPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4242065647316195201}
   - component: {fileID: 520744354054802168}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: View
   m_TagString: Ground
   m_Icon: {fileID: 0}
