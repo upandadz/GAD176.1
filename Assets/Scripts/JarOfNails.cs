@@ -21,6 +21,14 @@ public class JarOfNails : ThrowableBase
             
         }
     }
+
+    public override void Throw()
+    {
+        boxCollider.enabled = false;
+        Wait(0.5f);
+        boxCollider.enabled = true; // need to edit time perhaps ------------------
+    }
+    
     private void OnCollisionEnter2D(Collision2D other)
     {
         // on collision with player
@@ -54,5 +62,10 @@ public class JarOfNails : ThrowableBase
         Instantiate(prefabsList.hazards[0], transform.position, Quaternion.identity);
         // destroy self
         Destroy(gameObject);
+    }
+
+    private IEnumerator Wait(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
     }
 }
