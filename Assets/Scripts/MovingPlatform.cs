@@ -8,6 +8,7 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] private bool isHorizontal;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float moveDistance; // how far to move the platform each direction
+    [SerializeField] private Rigidbody2D rb2d;
     
     private Vector2 startPosition;
     private Vector2 movePosition; // where the platform will move to
@@ -21,13 +22,13 @@ public class MovingPlatform : MonoBehaviour
     {
         if (isHorizontal)
         {
-            movePosition.x = startPosition.x + Mathf.Sin(Time.time * moveSpeed) * moveDistance;
-            transform.position = new Vector2(movePosition.x, transform.position.y);
+            movePosition.x = startPosition.x + Mathf.Sin(Time.deltaTime * moveSpeed) * moveDistance;
+            rb2d.MovePosition(new Vector2(movePosition.x, transform.position.y)); // not working
         }
         else // verticle ------------ currently having issues with objects not staying on the platform properly, also when platform goes up it makes player animation bug out if player is on top
         {
-            movePosition.y = startPosition.y + Mathf.Sin(Time.time * moveSpeed) * moveDistance;
-            transform.position = new Vector2(transform.position.x, movePosition.y);
+            movePosition.y = startPosition.y + Mathf.Sin(Time.deltaTime * moveSpeed) * moveDistance;
+            rb2d.MovePosition(new Vector2(transform.position.x, movePosition.y)); // not working
         }
     }
 

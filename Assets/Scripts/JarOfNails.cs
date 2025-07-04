@@ -22,9 +22,14 @@ public class JarOfNails : ThrowableBase
         }
     }
 
+    public override void Pickup()
+    {
+        base.Pickup();
+        boxCollider.enabled = false; // ------------------ still colliding with player when thrown
+    }
+
     public override void Throw()
     {
-        boxCollider.enabled = false;
         Wait(0.5f);
         boxCollider.enabled = true; // need to edit time perhaps ------------------
     }
