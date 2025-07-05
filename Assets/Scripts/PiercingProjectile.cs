@@ -46,7 +46,7 @@ public class PiercingProjectile : ThrowableBase
         else if (thrown && collision.gameObject.GetComponent<Player>() != null) // hit player
         {
             thrown = false;
-            // start game event to up score
+           // GameEvents.OnHitByProjectileEvent.Invoke(collision.gameObject.GetComponent<Player>()); ---------------------
             // change sprite to dug in
             spriteRenderer.sprite = dugInSprite;
             // make player the parent

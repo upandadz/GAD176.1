@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class JarOfNails : ThrowableBase
@@ -14,14 +15,6 @@ public class JarOfNails : ThrowableBase
         prefabsList = FindObjectOfType<PrefabsList>(); // only one PrefabsList, I do hate to use this but I can't drag it into inspector if prefabsList is Serializefield
     }
 
-    void FixedUpdate()
-    {
-        if (thrown == true)
-        {
-            
-        }
-    }
-
     public override void Pickup()
     {
         base.Pickup();
@@ -30,8 +23,10 @@ public class JarOfNails : ThrowableBase
 
     public override void Throw()
     {
-        Wait(0.5f);
-        boxCollider.enabled = true; // need to edit time perhaps ------------------
+        thrown = false;
+        StartCoroutine(Wait(1f));
+        thrown = true; 
+        boxCollider.enabled = true;
     }
     
     private void OnCollisionEnter2D(Collision2D other)

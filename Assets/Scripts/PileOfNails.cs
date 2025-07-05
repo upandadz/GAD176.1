@@ -33,7 +33,8 @@ public class PileOfNails : MonoBehaviour
     {
         if (fadingOut == true)
         {
-            viewColor.a -= 100f * Time.deltaTime; // not working ----------------------------------
+            viewColor.a -= 0.5f * Time.deltaTime;
+            view.color = viewColor;
         }
     }
 
