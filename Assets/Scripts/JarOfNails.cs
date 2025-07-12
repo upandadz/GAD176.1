@@ -18,28 +18,19 @@ public class JarOfNails : ThrowableBase
     public override void Pickup()
     {
         base.Pickup();
-        boxCollider.enabled = false; // ------------------ still colliding with player when thrown
+        boxCollider.enabled = false;
     }
 
     public override void Throw()
     {
-        thrown = false;
-        StartCoroutine(Wait(1f));
         thrown = true; 
         boxCollider.enabled = true;
     }
     
     private void OnCollisionEnter2D(Collision2D other)
     {
-        // on collision with player
-        if (other.gameObject.GetComponent<Player>() && thrown == true)
-        {
-            // set off event maybe
-            // destroy self
-        }
-        
         // on collision with ground
-        else if (other.gameObject.GetComponent<Surface>() && thrown == true)
+        if (other.gameObject.GetComponent<Surface>() && thrown == true)
         {
             Smash();
         }
@@ -47,7 +38,6 @@ public class JarOfNails : ThrowableBase
 
     private void Smash()
     {
-        // jar smashing sound
         // nails PFX
         if (wasThrownRight)
         {

@@ -10,7 +10,8 @@ public class Spawner : MonoBehaviour
     public void Spawn()
     {
         // Instantiate prefab list item at random range spawn point position
-        Instantiate(prefabsList.throwables[Random.Range(0, prefabsList.throwables.Count)], spawnPoints[Random.Range(0, spawnPoints.Count)].position, Quaternion.identity);
+        Transform pointToSpawn = spawnPoints[Random.Range(0, spawnPoints.Count)];
+        Instantiate(prefabsList.throwables[Random.Range(0, prefabsList.throwables.Count)], pointToSpawn.position, Quaternion.identity, pointToSpawn);
     }
 
     private void OnEnable()

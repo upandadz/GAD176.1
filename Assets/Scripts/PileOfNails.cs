@@ -19,7 +19,7 @@ public class PileOfNails : MonoBehaviour
     {
         viewColor = view.color;
         RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance,groundLayer);
-        Debug.Log(raycastHit2D.collider.name);
+        // Debug.Log(raycastHit2D.collider.name);
         transform.position = raycastHit2D.point;
         if (raycastHit2D.collider.gameObject.GetComponent<MovingPlatform>() != null)
         {
@@ -38,7 +38,7 @@ public class PileOfNails : MonoBehaviour
         }
     }
 
-    private IEnumerator DestroyAfterTime() // destroying but no changing colour transparency ----------------------------
+    private IEnumerator DestroyAfterTime()
     {
         yield return new WaitForSeconds(5f);
         // change transparency slowly

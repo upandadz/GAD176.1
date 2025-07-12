@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
 
     public int CalculateFinalScore()
     {
-        int finalScore = spearsStuckInMe + nailsStoodOn + (int)(poisonedTime/2);
+        int finalScore = spearsStuckInMe + nailsStoodOn + (int)(poisonedTime/4);
         return finalScore;
     }
 
@@ -32,20 +32,20 @@ public class Player : MonoBehaviour
     {
         return playerNumber;
     }
-    private void OnCollisionEnter2D(Collision2D other) // ------------------------------- only working for jars of nails, not spears
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        // collision with throwables
-        if (other.gameObject.GetComponent<ThrowableBase>() != null && other.gameObject.GetComponent<ThrowableBase>().thrown == true)
+        // collision with spears
+        if (other.gameObject.GetComponent<PiercingProjectile>() != null)
         {
             Instantiate(prefabsList.particles[0], other.transform.position, Quaternion.identity); // blood particles
             
-            // play hit animation
-            animator.SetTrigger("Hit");
-
-            if (other.gameObject.GetComponent<PiercingProjectile>() != null) // stuck by spear or dart
+            animator.SetTrigger("Hit"); // play hit animation
+            
+            GameEvents.OnHitByProjectileEvent?.Invoke();
+            spearsStuckInMe++;
+            if (other.gameObject.GetComponent<PoisonDart>() != null)
             {
-                GameEvents.OnHitByProjectileEvent?.Invoke();
-                spearsStuckInMe++;
+                poisoned = true;
             }
         }
         
