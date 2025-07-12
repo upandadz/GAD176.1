@@ -30,6 +30,10 @@ public class Throw : MonoBehaviour
 
     void Update()
     {
+        if (movement.frozen)
+        {
+            return;
+        }
         // start charging throw
         if (Input.GetKeyDown(throwKey) && pickupAbility.itemHeld != null && chargingThrow == false) 
         {

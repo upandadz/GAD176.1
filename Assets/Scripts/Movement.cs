@@ -6,6 +6,8 @@ using UnityEngine.Serialization;
 
 public class Movement : MonoBehaviour
 {
+    public bool frozen = true;
+    
     [SerializeField] private Controls controls;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private BoxCollider2D collider;
@@ -30,7 +32,6 @@ public class Movement : MonoBehaviour
 
     private bool canDash = true;
     private bool canDoubleJump = true;
-    private bool frozen = false;
     private bool isDashing = false;
     private bool isFacingRight = true;
     private float dashCD = 1f;
@@ -53,6 +54,7 @@ public class Movement : MonoBehaviour
         
         // allows animator to know when running
         animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
+       
         
         // move left
         if (Input.GetKey(moveLeft) && IsWalledLeft() == false)
@@ -78,7 +80,7 @@ public class Movement : MonoBehaviour
         }
         
         // dash
-        if (Input.GetKey(dash) && canDash)
+        if (Input.GetKeyDown(dash) && canDash)
         {
             StartCoroutine(Dash());
         }
