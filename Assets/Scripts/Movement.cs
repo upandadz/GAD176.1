@@ -30,6 +30,7 @@ public class Movement : MonoBehaviour
 
     private bool canDash = true;
     private bool canDoubleJump = true;
+    private bool frozen = false;
     private bool isDashing = false;
     private bool isFacingRight = true;
     private float dashCD = 1f;
@@ -45,9 +46,9 @@ public class Movement : MonoBehaviour
     
     void Update()
     {
-        if (isDashing == true)
+        if (isDashing == true || frozen == true)
         {
-            return; // stops movement from messing with the dash
+            return; // stops movement from messing with the dash or from happening if frozen
         }
         
         // allows animator to know when running

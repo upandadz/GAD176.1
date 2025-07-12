@@ -42,7 +42,6 @@ public class JarOfNails : ThrowableBase
         else if (other.gameObject.GetComponent<Surface>() && thrown == true)
         {
             Smash();
-            // start event to spawn in new throwable
         }
     }
 
@@ -62,6 +61,7 @@ public class JarOfNails : ThrowableBase
         Instantiate(prefabsList.hazards[0], transform.position, Quaternion.identity);
         // destroy self
         Destroy(gameObject);
+        GameEvents.OnNailJarSmashed?.Invoke(); // ?. checking if not null
     }
 
     private IEnumerator Wait(float seconds)
