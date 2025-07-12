@@ -11,5 +11,14 @@ public class Spawner : MonoBehaviour
     {
         // Instantiate prefab list item at random range spawn point position
     }
-   
+
+    private void OnEnable()
+    {
+        
+    }
+
+    private void OnDisable()
+    {
+        
+    }
 }
