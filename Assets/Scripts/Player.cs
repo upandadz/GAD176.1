@@ -9,9 +9,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private PrefabsList prefabsList; // reference to prefabs list as it will be needed for powerups & particle effects
     
-    private int spearsStuckInMe; // does nothing yet
-    private int nailsStoodOn; // also does nothing yet
-    private float poisonedTime; // nothing yet either
+    private int spearsStuckInMe;
+    private int nailsStoodOn;
+    private float poisonedTime;
     private bool poisoned = false;
 
     void Update()

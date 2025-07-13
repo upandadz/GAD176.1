@@ -13,8 +13,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Player> players;
     [SerializeField] private float roundTime;
     
-    private int highestScore;
+    private int scoreLead;
     private int playerWinnerNumber;
+    private float countdowntime = 3f;
 
     void Awake()
     {
@@ -26,13 +27,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(CountDown(3f));
+        StartCoroutine(CountDown(countdowntime));
         StartCoroutine(RoundTimer(roundTime));
     }
 
-    public void GetWinnerInfo(int score, int playerNumber)
+    public void GetWinnerInfo(out int score, out int playerNumber)
     {
-        score = highestScore;
+        score = scoreLead;
         playerNumber = playerWinnerNumber;
     }
     
@@ -40,20 +41,35 @@ public class GameManager : MonoBehaviour
     
     // round start
     
-    // list of players to count how many spears stuck in them/how much damage they took, use for loop to count spears when timers out & see which is highest?
+    // list of players to count how many spears stuck in them/how much damage they took, use foreach loop to count spears when timers out & see which is highest?
     public void CountScore()
     {
+        int highestScore = 0;
+        int lowestScore = int.MaxValue;
+        
         foreach (Player player in players)
         {
             int score = player.CalculateFinalScore();
+            
             if (score > highestScore)
             {
                 highestScore = score;
+            }
+            
+            if (score < lowestScore)
+            {
+                lowestScore = score;
                 playerWinnerNumber = player.GetPlayerNumber();
             }
         }
+        
+        scoreLead = highestScore - lowestScore;
     }
 
+    public float GetRoundTime()
+    {
+        return roundTime;
+    }
     public void FreezePlayers()
     {
         foreach (Player player in players)
@@ -80,15 +96,16 @@ public class GameManager : MonoBehaviour
         FreezePlayers();
         yield return new WaitForSeconds(seconds);
         UnfreezePlayers();
+        gameStart.Invoke();
     }
 
     private IEnumerator RoundTimer(float roundTime)
     {
-        float timeRemaining = roundTime;
+        float timeRemaining = roundTime += countdowntime; // was having an issue where it would start counting down before the round start countdown was finished, this is just to offset that
         while (timeRemaining > 0)
         {
             timeRemaining -= Time.deltaTime;
-            yield return null;
+            yield return null; // waits until the next frame to run again, saves me doing this in update
         }
         FreezePlayers();
         gameOver.Invoke();
