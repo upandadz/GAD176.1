@@ -31,10 +31,14 @@ public class GameManager : MonoBehaviour
         StartCoroutine(RoundTimer(roundTime));
     }
 
-    public void GetWinnerInfo(out int score, out int playerNumber)
+    public int GetScoreLead()
     {
-        score = scoreLead;
-        playerNumber = playerWinnerNumber;
+        return scoreLead;
+    }
+
+    public int GetPlayerWinnerNumber()
+    {
+        return playerWinnerNumber;
     }
     
     // keep track of time

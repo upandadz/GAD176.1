@@ -98,7 +98,7 @@ public class ThrowAbility : MonoBehaviour
             }
             throwable.wasThrownRight = false;
         }
-        pickupAbility.itemHeld = null;
+        pickupAbility.itemHeld = null; // removing from scripts held item
         throwable.rb.simulated = true;
         throwable.transform.parent = null;
         throwable.thrown = true;

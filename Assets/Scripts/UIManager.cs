@@ -15,7 +15,8 @@ public class UIManager : MonoBehaviour
     
     public void DisplayScore()
     {
-        gameManager.GetWinnerInfo(out scoreLead, out playerNumber);
+        playerNumber = gameManager.GetPlayerWinnerNumber();
+        scoreLead = gameManager.GetScoreLead();
         // change the text of the canvas
         playerXWonText.text = "Player " + playerNumber + " won";
         xPointLead.text = scoreLead + " point lead";

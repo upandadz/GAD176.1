@@ -10,7 +10,6 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] private bool isHorizontal;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float moveDistance; // how far to move the platform each direction
-    [SerializeField] private Rigidbody2D rb2d;
     
     private Vector2 startPosition;
     private Vector2 movePosition; // where the platform will move to
