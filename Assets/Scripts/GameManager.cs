@@ -7,11 +7,14 @@ using UnityEngine.Events;
 public class GameManager : MonoBehaviour
 {
     public UnityEvent gameOver;
+    public UnityEvent gameStart;
     public static GameManager gameManager;
-    private int highestScore;
-    private int playerWinnerNumber;
     
     [SerializeField] private List<Player> players;
+    [SerializeField] private float roundTime;
+    
+    private int highestScore;
+    private int playerWinnerNumber;
 
     void Awake()
     {
@@ -21,10 +24,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void StartGame()
+    void Start()
     {
-        // do count down 3 2 1 - coroutine
-        // game starts - unfreeze players
+        StartCoroutine(CountDown(3f));
+        StartCoroutine(RoundTimer(roundTime));
     }
 
     public void GetWinnerInfo(int score, int playerNumber)
@@ -57,5 +60,37 @@ public class GameManager : MonoBehaviour
         {
             player.GetComponent<Movement>().frozen = true;
         }
+    }
+
+    public void UnfreezePlayers()
+    {
+        foreach (Player player in players)
+        {
+            player.GetComponent<Movement>().frozen = false;
+        }
+    }
+
+    public void LoadScene(int scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
+    
+    private IEnumerator CountDown(float seconds)
+    {
+        FreezePlayers();
+        yield return new WaitForSeconds(seconds);
+        UnfreezePlayers();
+    }
+
+    private IEnumerator RoundTimer(float roundTime)
+    {
+        float timeRemaining = roundTime;
+        while (timeRemaining > 0)
+        {
+            timeRemaining -= Time.deltaTime;
+            yield return null;
+        }
+        FreezePlayers();
+        gameOver.Invoke();
     }
 }

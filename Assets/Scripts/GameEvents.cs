@@ -8,7 +8,5 @@ public static class GameEvents
     public static Action OnNailJarSmashed;
     // spawn in another item
     public static Action OnHitByProjectileEvent;
-    // event spear lands in player
-    // player spear count ++
     // spear spawns in
 }
