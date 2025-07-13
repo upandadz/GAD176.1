@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Throw : MonoBehaviour
+public class ThrowAbility : MonoBehaviour
 {
     [SerializeField] private PickupAbility pickupAbility;
     [SerializeField] private Controls controls;
