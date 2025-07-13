@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+/// <summary>
+/// player movement
+/// </summary>
 public class Movement : MonoBehaviour
 {
     public bool frozen = true;

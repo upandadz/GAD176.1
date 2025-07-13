@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
+    // Expat Studios. (2023, feb 10). Simple Moving Platforms - Unity [Video]. YouTube. https://www.youtube.com/watch?v=FtC4e2fVstE 
+    
     [SerializeField] private bool isHorizontal;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float moveDistance; // how far to move the platform each direction
@@ -12,7 +14,6 @@ public class MovingPlatform : MonoBehaviour
     
     private Vector2 startPosition;
     private Vector2 movePosition; // where the platform will move to
-    private List<Rigidbody2D> objectsOnPlatform = new List<Rigidbody2D>();
 
     void Start()
     {

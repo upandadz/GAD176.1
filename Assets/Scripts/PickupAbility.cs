@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// players ability to pick up objects
+/// </summary>
 public class PickupAbility : MonoBehaviour // rename class to something to do with the ability to pick up
 {
     public Transform pickupPoint;

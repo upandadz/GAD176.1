@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+/// <summary>
+/// base for throwable items
+/// </summary>
 public class ThrowableBase : MonoBehaviour, IPickupable
 {
     public bool thrown = false;

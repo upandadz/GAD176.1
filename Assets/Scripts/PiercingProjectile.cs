@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 
+/// <summary>
+/// Inherits from ThrowableBase, used for thrown objects that pierce things when thrown
+/// </summary>
 public class PiercingProjectile : ThrowableBase
 {
     [SerializeField] private PolygonCollider2D tipCollider;
@@ -41,12 +44,10 @@ public class PiercingProjectile : ThrowableBase
         {
             MakeStatic();
             tipCollider.enabled = false;
-            // transform.parent = collision.transform; // this is for when I have moving platforms so it moves with the platform, currently making it go weird with the floor
         }
         else if (thrown && collision.gameObject.GetComponent<Player>() != null) // hit player
         {
             thrown = false;
-           // GameEvents.OnHitByProjectileEvent.Invoke(collision.gameObject.GetComponent<Player>()); ---------------------
             // change sprite to dug in
             spriteRenderer.sprite = dugInSprite;
             // make player the parent

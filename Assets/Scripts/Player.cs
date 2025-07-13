@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// keeps track of score & other player info
+/// </summary>
 public class Player : MonoBehaviour
 {
     [SerializeField] private int playerNumber;

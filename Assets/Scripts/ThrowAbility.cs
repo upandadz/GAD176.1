@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+/// <summary>
+/// The players ability to throw items
+/// </summary>
 public class ThrowAbility : MonoBehaviour
 {
     [SerializeField] private PickupAbility pickupAbility;

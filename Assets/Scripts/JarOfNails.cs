@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// thrown item, can be picked up and thrown
+/// </summary>
 public class JarOfNails : ThrowableBase
 {
     private Quaternion rotationRight = Quaternion.Euler(68, 90, -90);
