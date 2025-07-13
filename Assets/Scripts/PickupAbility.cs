@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// players ability to pick up objects
 /// </summary>
-public class PickupAbility : MonoBehaviour // rename class to something to do with the ability to pick up
+public class PickupAbility : MonoBehaviour 
 {
     public Transform pickupPoint;
     public GameObject itemHeld;
@@ -15,7 +15,7 @@ public class PickupAbility : MonoBehaviour // rename class to something to do wi
     [SerializeField] private Movement movement; // this is to get what direction player is facing 
 
     private float zAngle = 65;
-    private void OnTriggerEnter2D(Collider2D other) // need to know what direction we are facing
+    private void OnTriggerEnter2D(Collider2D other)
     {
         PickupItem(other);
     }
